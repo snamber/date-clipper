@@ -1,19 +1,41 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os/exec"
 	"runtime"
 	"time"
+
+	"github.com/integrii/flaggy"
+)
+
+var (
+	style = "none"
 )
 
 func main() {
+	flaggy.String(&style, "s", "style", "the formatting style ('iso' / 'long-date' / 'time')")
+	flaggy.Parse()
+
 	now := time.Now()
-	year, month, day := now.Date()
-	datestring := fmt.Sprintf("%04d-%02d-%02d", year, month, day)
+	datestring := getDateString(now, style)
 
 	toClipboard([]byte(datestring), runtime.GOOS)
+}
+
+func getDateString(now time.Time, style string) string {
+	var datestring string
+	switch style {
+	case "iso":
+		datestring = now.Format("2006-01-02")
+	case "long-date":
+		datestring = now.Format("January 2, 2006")
+	case "time":
+		datestring = now.Format("3:04 PM")
+	default:
+		datestring = now.String()
+	}
+	return datestring
 }
 
 func toClipboard(output []byte, arch string) {
