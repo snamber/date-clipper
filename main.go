@@ -9,9 +9,7 @@ import (
 	"github.com/integrii/flaggy"
 )
 
-var (
-	style = "none"
-)
+var style string
 
 func main() {
 	flaggy.String(&style, "s", "style", "the formatting style ('iso' / 'long-date' / 'time')")
