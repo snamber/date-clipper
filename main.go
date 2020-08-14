@@ -30,6 +30,8 @@ func getDateString(now time.Time, style string) string {
 		datestring = now.Format("January 2, 2006")
 	case "time":
 		datestring = now.Format("3:04 PM")
+	case "utc":
+		datestring = now.In(time.UTC).Format("15:04 UTC")
 	default:
 		datestring = now.String()
 	}
