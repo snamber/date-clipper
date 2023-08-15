@@ -11,7 +11,7 @@ import (
 var style string
 
 func main() {
-	flaggy.String(&style, "s", "style", "the formatting style ('iso' / 'long-date' / 'time')")
+	flaggy.String(&style, "s", "style", "the formatting style ('iso' / 'long-date' / 'time' / 'utc')")
 	flaggy.Parse()
 
 	now := time.Now()
@@ -32,8 +32,7 @@ func getDateString(now time.Time, style string) string {
 	case "utc":
 		datestring = now.In(time.UTC).Format("15:04 UTC")
 	default:
-		datestring = now.String()
+		datestring = now.Truncate(0).String()
 	}
 	return datestring
 }
-

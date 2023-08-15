@@ -1,2 +1,0 @@
-# github.com/integrii/flaggy v1.2.0
-github.com/integrii/flaggy
